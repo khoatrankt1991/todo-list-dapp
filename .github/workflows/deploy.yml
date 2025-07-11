@@ -1,0 +1,45 @@
+name: 🚀 Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: 📤 Deploy Frontend to Cloudflare
+    runs-on: ubuntu-latest
+    needs: lint-build-frontend   # 👈 Make sure ci is passed
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🧰 Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📦 Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: 🏗 Build frontend
+        run: |
+          cd frontend
+          npm run build
+        env:
+          NEXT_PUBLIC_WC_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_WC_PROJECT_ID }}
+          NEXT_PUBLIC_CONTRACT_ADDRESS: ${{ secrets.NEXT_PUBLIC_CONTRACT_ADDRESS }}
+          NEXT_PUBLIC_CONTRACT_ADDRESS_MONAD: ${{ secrets.NEXT_PUBLIC_CONTRACT_ADDRESS_MONAD }}
+          NEXT_PUBLIC_CONTRACT_ADDRESS_POLYGON_AMOY: ${{ secrets.NEXT_PUBLIC_CONTRACT_ADDRESS_POLYGON_AMOY }}
+          NEXT_PUBLIC_CONTRACT_ADDRESS_SEPOLIA: ${{ secrets.NEXT_PUBLIC_CONTRACT_ADDRESS_SEPOLIA }}
+
+      - name: 📤 Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          projectName: web3-todolist-dapp
+          directory: frontend/out
