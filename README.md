@@ -1,9 +1,11 @@
 # Web3 TodoList DApp
-[![Build Status](https://github.com/khoatrankt1991/todo-list-dapp/actions/workflows/ci.yml/badge.svg)](https://github.com/khoatrankt1991/todo-list-dapp/actions)
+[![Build Status](https://github.com/khoatrankt1991/todo-list-dapp/actions/workflows/ci.yaml/badge.svg)](https://github.com/khoatrankt1991/todo-list-dapp/actions)
 [![codecov](https://codecov.io/gh/khoatrankt1991/todo-list-dapp/branch/main/graph/badge.svg)](https://codecov.io/gh/khoatrankt1991/todo-list-dapp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A decentralized TodoList application built with Solidity smart contracts and Next.js frontend, featuring wallet integration and real-time blockchain interactions.
+
+👉 [`📊 Live Transaction Examples`](./frontend/docs/demo.md)
 
 ## 🚀 Features
 
