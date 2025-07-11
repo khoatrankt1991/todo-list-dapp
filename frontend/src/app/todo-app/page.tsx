@@ -10,6 +10,7 @@ import WalletConnection from '@/components/WalletConnection';
 import AddTaskForm from '@/components/AddTaskForm';
 import TaskList from '@/components/TaskList';
 import 'react-toastify/dist/ReactToastify.css';
+import { SupportedChainId } from '@/constants/networks';
 
 export default function TodoApp() {
   const { isConnected, chain } = useAccount();
@@ -23,7 +24,7 @@ export default function TodoApp() {
     writeContract,
     isPending,
     isConfirming,
-  } = useTodoContract(isConnected, chain?.id);
+  } = useTodoContract(isConnected, chain?.id as SupportedChainId | undefined);
 
   const addTask = (desc: string) => {
     writeContract({
