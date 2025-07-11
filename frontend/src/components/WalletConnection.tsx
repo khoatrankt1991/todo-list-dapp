@@ -4,6 +4,8 @@
 import { useAccount, useConnect, useDisconnect, useSwitchChain } from 'wagmi';
 import { polygonAmoy, monadTestnet, sepolia } from 'wagmi/chains';
 
+import { SupportedChainId } from '@/constants/networks';
+
 interface WalletConnectionProps {
   currentChainId?: number;
   isCorrectNetwork: boolean;
@@ -13,7 +15,7 @@ export default function WalletConnection({
   currentChainId,
   isCorrectNetwork,
 }: WalletConnectionProps) {
-  const { address, isConnected, chain } = useAccount();
+  const { address, isConnected } = useAccount();
   const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
   const { switchChain } = useSwitchChain();
@@ -38,7 +40,8 @@ export default function WalletConnection({
 
   const networkInfo = currentChainId ? getNetworkInfo(currentChainId) : null;
 
-  const handleSwitchNetwork = (chainId: number) => switchChain({ chainId });
+  const handleSwitchNetwork = (chainId: SupportedChainId) =>
+    switchChain({ chainId });
 
   return (
     <div className="mb-6 rounded-xl bg-white p-6 shadow-lg">

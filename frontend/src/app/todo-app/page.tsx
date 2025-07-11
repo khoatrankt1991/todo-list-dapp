@@ -2,12 +2,13 @@
 'use client';
 
 import { useAccount } from 'wagmi';
+import { ToastContainer } from 'react-toastify';
+
 import { TODO_CONTRACT_ABI } from '@/constants/contract';
 import { useTodoContract } from '@/hooks/useTodoContract';
 import WalletConnection from '@/components/WalletConnection';
 import AddTaskForm from '@/components/AddTaskForm';
 import TaskList from '@/components/TaskList';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function TodoApp() {
@@ -22,8 +23,6 @@ export default function TodoApp() {
     writeContract,
     isPending,
     isConfirming,
-    isConfirmed,
-    refetch,
   } = useTodoContract(isConnected, chain?.id);
 
   const addTask = (desc: string) => {
@@ -89,7 +88,7 @@ export default function TodoApp() {
                 </div>
               ) : (
                 <TaskList
-                  tasks={tasks as any}
+                  tasks={tasks || []}
                   onToggle={toggleTask}
                   isPending={isPending || isConfirming}
                 />

@@ -1,6 +1,7 @@
 import { monadTestnet, polygonAmoy, sepolia } from 'wagmi/chains';
 
 export const SUPPORTED_NETWORKS = [polygonAmoy.id, monadTestnet.id, sepolia.id];
+export type SupportedChainId = (typeof SUPPORTED_NETWORKS)[number];
 
 export const NETWORK_NAMES: Record<number, string> = {
   [polygonAmoy.id]: 'Polygon Amoy',

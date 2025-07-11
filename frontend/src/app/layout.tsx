@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+
 import { Web3Provider } from './providers';
 import './globals.css';
 

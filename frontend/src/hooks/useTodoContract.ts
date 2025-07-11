@@ -6,21 +6,24 @@ import {
   useWatchContractEvent,
   useWriteContract,
 } from 'wagmi';
+
 import {
   GET_TODO_CONTRACT_ADDRESS,
   TODO_CONTRACT_ABI,
 } from '../constants/contract';
-import { SUPPORTED_NETWORKS } from '../constants/networks';
+import { SUPPORTED_NETWORKS, SupportedChainId } from '../constants/networks';
 
-export const useTodoContract = (isConnected: boolean, chainId?: number) => {
+export const useTodoContract = (
+  isConnected: boolean,
+  chainId?: SupportedChainId
+) => {
   const isCorrectNetwork = chainId
-    ? SUPPORTED_NETWORKS.includes(chainId as any)
+    ? SUPPORTED_NETWORKS.includes(chainId)
     : false;
   const contractAddress =
     isCorrectNetwork && chainId
       ? GET_TODO_CONTRACT_ADDRESS(chainId)
       : undefined;
-  console.log('contractAddress', contractAddress);
   const {
     data: tasks,
     refetch,
