@@ -116,3 +116,8 @@ npm run deploy:monad
 
 ### 5. Frontend Development
  Inprocessing the contract address from the backend and displaying
+
+
+ |--|--|
+ |MonadAddress|0xA2555F09b2aCC3EabD2feee5e2AC36b5Da066e61|
+ 
