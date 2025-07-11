@@ -22,22 +22,12 @@ export const config = createConfig({
     }),
   ],
   transports: {
-    [mainnet.id]: http(
-      `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
-    ),
-    [sepolia.id]: http(
-      `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
-    ),
-    [polygonAmoy.id]: http(
-      `https://polygon-amoy.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
-    ),
-    [monadTestnet.id]: http(
-      `https://monad-testnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
-    ),
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+    [polygonAmoy.id]: http(),
+    [monadTestnet.id]: http(),
     [hardhat.id]: http(),
-    [polygon.id]: http(
-      `https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
-    ),
+    [polygon.id]: http(),
   },
   ssr: true,
 });
