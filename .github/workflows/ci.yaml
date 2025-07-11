@@ -68,6 +68,25 @@ jobs:
           cd frontend
           npm run format:check
 
+      - name: 🧪 Run frontend tests
+        run: |
+          cd frontend
+          npm run test
+
+      - name: 📊 Generate coverage report
+        run: |
+          cd frontend
+          npm run test:coverage
+
+      - name: ☁️ Upload to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./frontend/coverage/lcov.info
+          flags: frontend
+          name: frontend-coverage
+          fail_ci_if_error: true
+
       - name: 🏗 Run build
         run: |
           cd frontend
