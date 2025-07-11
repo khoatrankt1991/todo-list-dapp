@@ -26,10 +26,13 @@ type TaskResponse = {
 
 const convertTaskResponse = (tasks: TaskResponse[]): Task[] => {
   return tasks
-    ? tasks.map((e, index) => ({
-        index,
-        ...e,
-      }))
+    ? tasks
+        .map((e, index) => ({
+          index,
+          ...e,
+        }))
+        .slice()
+        .reverse()
     : [];
 };
 
