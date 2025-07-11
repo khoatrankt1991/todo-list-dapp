@@ -118,6 +118,9 @@ npm run deploy:monad
  Inprocessing the contract address from the backend and displaying
 
 
- |--|--|
- |MonadAddress|0xA2555F09b2aCC3EabD2feee5e2AC36b5Da066e61|
+|Network|Address|
+|-------------|------------------------------------------|
+|Monad Testnet|0xA2555F09b2aCC3EabD2feee5e2AC36b5Da066e61|
+|Polygon Amoyy|0x1e2Da01b7bb80FCF011f821D75AEFA3BF48ABf0a|
+|Sepolia|0xD4144c1FB6E8d1D068D3E9897B6F233fd34F4B4F|
  
