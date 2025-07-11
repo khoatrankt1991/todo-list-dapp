@@ -18,21 +18,53 @@ A decentralized TodoList application built with Solidity smart contracts and Nex
 - **Frontend**: Next.js 14, TypeScript, Tailwind CSS
 - **Web3**: Wagmi v2, Viem, TanStack Query
 - **Testing**: Vitest, Hardhat testing framework
-- **Linting**: ESLint, Prettier
-- **CI/CD**: GitHub Actions, Clouflare deployment
+- **Linting**: ESLint, Prettier, Husky
+- **CI/CD**: GitHub Actions, Cloudflare & Vercel deployment
+
+## 🌐 Live Demo
+
+- **Cloudflare**: [https://web3-todolist-dapp.pages.dev/](https://web3-todolist-dapp.pages.dev/)
+- **Vercel**: [https://todo-list-dapp-neon.vercel.app/](https://todo-list-dapp-neon.vercel.app/)
 
 ## 📦 Project Structure
 
 ```
-├── contracts/           # Solidity smart contracts
-├── deploy/            # Deployment scripts
-├── test/              # Smart contract tests
-├── frontend/          # Next.js application
+todo-list-dapp/
+├── contracts/                    # Solidity smart contracts
+│   └── TodoList.sol             # Main TodoList contract
+├── scripts/                     # Deployment scripts
+│   └── deploy.ts               # Contract deployment script
+├── test/                       # Smart contract tests
+│   └── TodoList.test.ts        # Contract test suite
+├── frontend/                   # Next.js application
 │   ├── src/
-│   │   ├── app/       # Next.js 14 app router
-│   │   ├── components/# React components
-│   │   └── test/      # Frontend tests
-├── .github/workflows/ # CI/CD configuration
+│   │   ├── app/               # Next.js 14 app router
+│   │   │   ├── layout.tsx     # Root layout
+│   │   │   ├── page.tsx       # Home page
+│   │   │   ├── todo-app/      # Todo app pages
+│   │   │   └── providers/     # Web3 providers
+│   │   ├── components/        # React components
+│   │   │   ├── WalletConnection.tsx
+│   │   │   ├── AddTaskForm.tsx
+│   │   │   ├── TaskList.tsx
+│   │   │   └── TaskItem.tsx
+│   │   ├── hooks/            # Custom React hooks
+│   │   │   └── useTodoContract.ts
+│   │   ├── constants/        # App constants
+│   │   │   ├── contract.ts   # Contract ABI & addresses
+│   │   │   └── networks.ts   # Network configurations
+│   │   └── test/             # Frontend tests
+│   │       ├── setup.ts      # Test configuration
+│   │       ├── components/   # Component tests
+│   │       ├── hooks/        # Hook tests
+│   │       └── pages/        # Page tests
+│   ├── public/               # Static assets
+│   ├── vitest.config.ts      # Vitest configuration
+│   ├── package.json          # Frontend dependencies
+│   └── tsconfig.json         # TypeScript config
+├── .github/workflows/        # CI/CD configuration
+├── hardhat.config.ts         # Hardhat configuration
+├── package.json              # Root dependencies
 └── README.md
 ```
 
@@ -67,25 +99,26 @@ cd frontend && npm install && cd ..
 Create `.env` file in the root directory:
 
 ```env
-# Private key for deployment (DO NOT commit to git)
+# Alchemy API Keys
 AICHEMY_KEY=YOUR_ALCHEMY_KEY
 ACCOUNT_PRIVATE_KEY=YOUR_ACCOUNT_PRIVATE_KEY
 LOCALHOST_OX=YOUR_PRIVATE_KEY_LOCALHOST
+
+# Blockchain Explorer API Keys
 ETHERSCAN_API_KEY=YOUR_ETHERSCAN_API_KEY
 POLYGON_SCAN_API_KEY=YOUR_POLYGON_SCAN_API_KEY
-
-# RPC URLs
-MONAD_RPC_URL=https://monad-testnet.g.alchemy.com/v2/${AICHEMY_KEY}
-ETHERSCAN_API_KEY=your_etherscan_api_key
-
-# Frontend environment variables
-NEXT_PUBLIC_CONTRACT_ADDRESS=0x...
 ```
 
 Create `frontend/.env.local`:
 
 ```env
-NEXT_PUBLIC_CONTRACT_ADDRESS=0x...
+# Contract Addresses (auto-configured based on network)
+NEXT_PUBLIC_WC_PROJECT_ID=68902f130008379ab19f2167fcd6bbed
+NEXT_PUBLIC_CONTRACT_ADDRESS=0x1e2Da01b7bb80FCF011f821D75AEFA3BF48ABf0a
+NEXT_PUBLIC_CONTRACT_ADDRESS_MONAD=0xA2555F09b2aCC3EabD2feee5e2AC36b5Da066e61
+NEXT_PUBLIC_CONTRACT_ADDRESS_POLYGON_AMOY=0x1e2Da01b7bb80FCF011f821D75AEFA3BF48ABf0a
+NEXT_PUBLIC_CONTRACT_ADDRESS_SEPOLIA=0xD4144c1FB6E8d1D068D3E9897B6F233fd34F4B4F
+NEXT_PUBLIC_ALCHEMY_ID={YOUR_ALCHEMY_ID}
 ```
 
 ### 4. Smart Contract Development
@@ -111,18 +144,95 @@ npm run deploy:localhost
 
 #### Deploy to Monad Testnet
 ```bash
-npm run deploy:monad
+npm run deploy:monadTestnet
 ```
 
+## 🔧 Development
+
 ### 5. Frontend Development
- Inprocessing the contract address from the backend and displaying
+
+```bash
+cd frontend
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+#### Run Frontend Tests
+```bash
+cd frontend
+npm test
+```
+
+#### Build for Production
+```bash
+cd frontend
+npm run build
+```
+
+## 🧪 Testing
+
+### Smart Contract Tests
+```bash
+npm run test
+```
+
+### Frontend Tests
+```bash
+cd frontend
+npm test
+```
+
+### Test Coverage
+```bash
+cd frontend
+npm run test:coverage
+```
+
+## 📝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Wagmi](https://wagmi.sh/) for Web3 React hooks
+- [Viem](https://viem.sh/) for Ethereum TypeScript interface
+- [Hardhat](https://hardhat.org/) for Ethereum development environment
+- [Next.js](https://nextjs.org/) for React framework
+- [Tailwind CSS](https://tailwindcss.com/) for styling
 
 
-## Deployments address
+## 📋 Smart Contract Deployments
 
-|Network|Address|
-|-------------|------------------------------------------|
-|Monad Testnet|0xA2555F09b2aCC3EabD2feee5e2AC36b5Da066e61|
-|Polygon Amoyy|0x1e2Da01b7bb80FCF011f821D75AEFA3BF48ABf0a|
-|Sepolia|0xD4144c1FB6E8d1D068D3E9897B6F233fd34F4B4F|
+| Network | Contract Address |
+|---------|------------------|
+| Monad Testnet | `0xA2555F09b2aCC3EabD2feee5e2AC36b5Da066e61` |
+| Polygon Amoy | `0x1e2Da01b7bb80FCF011f821D75AEFA3BF48ABf0a` |
+| Sepolia | `0xD4144c1FB6E8d1D068D3E9897B6F233fd34F4B4F` |
+
+## 🚀 Deployment
+
+### Frontend Deployment
+- **Cloudflare Pages**: [https://web3-todolist-dapp.pages.dev/](https://web3-todolist-dapp.pages.dev/)
+- **Vercel**: [https://todo-list-dapp-neon.vercel.app/](https://todo-list-dapp-neon.vercel.app/)
+
+### Smart Contract Deployment
+```bash
+# Deploy to local network
+npm run deploy:localhost
+
+# Deploy to Polygon Amoy
+npm run deploy:polygonAmoy
+
+# Deploy to Monad Testnet
+npm run deploy:monadTestnet
+```
  
