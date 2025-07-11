@@ -67,7 +67,7 @@ export const useTodoContract = (
   });
 
   return {
-    tasks: tasks?.slice().reverse(),
+    tasks,
     isLoading,
     isError,
     refetch,
