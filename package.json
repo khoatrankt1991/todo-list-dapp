@@ -1,7 +1,17 @@
 {
   "name": "hardhat-project",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:localhost": "hardhat run scripts/deploy.ts --network ganacheLocalhost",
+    "deploy:polygonAmoy": "hardhat run scripts/deploy.ts --network polygonAmoy",
+    "deploy:monadTestnet": "hardhat run scripts/deploy.ts --network monadTestnet"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.0.0",
     "hardhat": "^2.25.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0"
   }
 }
