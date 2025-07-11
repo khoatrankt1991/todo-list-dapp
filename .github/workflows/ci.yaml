@@ -7,31 +7,73 @@ on:
     branches: [ main ]
 
 jobs:
+  # === SMART CONTRACT JOB ===
   compile-and-test-smart-contracts:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout code
+    - name: ⬇️ Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup Node.js
+    - name: 🧰 Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'npm'
     
-    - name: Install dependencies
+    - name: 📦 Install dependencies (root)
       run: |
         npm ci
-    - name: Create .env file
+    - name: 🔐 Create .env file for smart contracts
       run: |
         echo "ALCHEMY_KEY=${{ secrets.ALCHEMY_KEY }}" >> .env
         echo "ACCOUNT_PRIVATE_KEY=${{ secrets.ACCOUNT_PRIVATE_KEY }}" >> .env
         echo "LOCALHOST_OX=${{ secrets.LOCALHOST_OX }}" >> .env
         echo "ETHERSCAN_API_KEY=${{ secrets.ETHERSCAN_API_KEY }}" >> .env
         echo "POLYGON_SCAN_API_KEY=${{ secrets.POLYGON_SCAN_API_KEY }}" >> .env
-    - name: Compile smart contracts
+    - name: 🛠 Compile smart contracts
       run: npm run compile
       
-    - name: Run smart contract tests
+    - name: 🧪 Run smart contract tests
       run: npm run test
+
+  # === FRONTEND JOB ===
+  lint-build-frontend:
+    name: 🎨 Lint & Build Frontend
+    runs-on: ubuntu-latest
+    needs: compile-and-test-smart-contracts
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📦 Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: 🔍 Run ESLint
+        run: |
+          cd frontend
+          npm run lint
+
+      - name: 🧼 Run Prettier check
+        run: |
+          cd frontend
+          npm run format:check
+
+      - name: 🏗 Run build
+        run: |
+          cd frontend
+          npm run build
+
+      - name: ✅ Run build check
+        run: |
+          cd frontend
+          npm run build:check

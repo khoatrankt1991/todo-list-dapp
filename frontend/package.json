@@ -12,7 +12,8 @@
     "build:check": "npm run type-check && npm run lint && npm run build",
     "test": "echo \"No tests configured yet\" && exit 0",
     "test:watch": "echo \"No tests configured yet\" && exit 0",
-    "prepare": "husky"
+    "prepare": "husky",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "next": "15.3.5",
