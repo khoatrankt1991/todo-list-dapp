@@ -77,8 +77,8 @@ describe('useTodoContract', () => {
     const { result } = renderHook(() => useTodoContract(true, 80002));
 
     expect(result.current.tasks).toEqual([
-      { description: 'Task 2', completed: true },
       { description: 'Task 1', completed: false },
+      { description: 'Task 2', completed: true },
     ]);
   });
 
