@@ -36,7 +36,6 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@wagmi/core', '@wagmi/connectors', 'wagmi'],
 
   // Performance optimizations
-  swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },

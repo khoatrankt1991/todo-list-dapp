@@ -1,10 +1,9 @@
+import { Task } from '@/hooks/useTodoContract';
+
 import TaskItem from './TaskItem';
 
 type TaskListProps = {
-  tasks: {
-    description: string;
-    completed: boolean;
-  }[];
+  tasks: Task[];
   onToggle: (index: number) => void;
   isPending: boolean;
 };
@@ -21,7 +20,7 @@ export default function TaskList({
           key={index}
           task={task}
           index={index}
-          onToggle={onToggle}
+          onToggle={() => onToggle(task.index)}
           disabled={isPending}
         />
       ))}

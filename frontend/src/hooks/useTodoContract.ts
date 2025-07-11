@@ -13,6 +13,26 @@ import {
 } from '../constants/contract';
 import { SUPPORTED_NETWORKS, SupportedChainId } from '../constants/networks';
 
+export type Task = {
+  index: number;
+  description: string;
+  completed: boolean;
+};
+
+type TaskResponse = {
+  description: string;
+  completed: boolean;
+};
+
+const convertTaskResponse = (tasks: TaskResponse[]): Task[] => {
+  return tasks
+    ? tasks.map((e, index) => ({
+        index,
+        ...e,
+      }))
+    : [];
+};
+
 export const useTodoContract = (
   isConnected: boolean,
   chainId?: SupportedChainId
@@ -25,7 +45,7 @@ export const useTodoContract = (
       ? GET_TODO_CONTRACT_ADDRESS(chainId)
       : undefined;
   const {
-    data: tasks,
+    data: tasksResponse,
     refetch,
     isLoading,
     isError,
@@ -65,6 +85,7 @@ export const useTodoContract = (
       refetch();
     },
   });
+  const tasks = convertTaskResponse(tasksResponse as TaskResponse[]);
 
   return {
     tasks,
