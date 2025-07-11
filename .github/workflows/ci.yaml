@@ -111,7 +111,7 @@ jobs:
           NEXT_PUBLIC_CONTRACT_ADDRESS_SEPOLIA: ${{ secrets.NEXT_PUBLIC_CONTRACT_ADDRESS_SEPOLIA }}
 
       - name: 📤 Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/pages-action@v1
         with:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
